@@ -21,7 +21,7 @@ public class Vector2d {
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
         System.out.println(position1.add(position2));
-
+        Vector2d position3 = new Vector2d(1,-1);
         System.out.println("\n\n\n=====================\n\n\n");
 
         MapDirection direction = MapDirection.NORTH;

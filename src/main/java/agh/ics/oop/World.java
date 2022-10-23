@@ -6,11 +6,24 @@ import java.util.stream.Collectors;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("System wystartowal");
-//        Za pomoca stream:
-        run(transform(args));
-//        runStream(transformStream(args));
-        System.out.println("System zakonczyl dzialanie");
+//        System.out.println("System wystartowal");
+////        Za pomoca stream:
+//        run(transform(args));
+////        runStream(transformStream(args));
+//        System.out.println("System zakonczyl dzialanie");
+
+        Animal animal1= new Animal();
+        MoveDirection[] tasks= OptionsParser.parse(args);
+        for (MoveDirection task : tasks) animal1.move(task);
+        System.out.println(animal1);
+//        System.out.println(animal1);
+//        animal1.move(MoveDirection.RIGHT);
+//        animal1.move(MoveDirection.FORWARD);
+//        animal1.move(MoveDirection.FORWARD);
+//        animal1.move(MoveDirection.FORWARD);
+//        System.out.println(animal1);
+//        MoveDirection[] testTab= OptionsParser.parse(new String[]{"b","r","l","backward","forwaard","forward","slalfaf","123"});
+//        System.out.println(testTab[4]);
     }
     static void run(Direction[] steps){
         /*
