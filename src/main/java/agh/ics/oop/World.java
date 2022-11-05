@@ -12,10 +12,12 @@ public class World {
 ////        runStream(transformStream(args));
 //        System.out.println("System zakonczyl dzialanie");
 
-        Animal animal1= new Animal();
-        MoveDirection[] tasks= OptionsParser.parse(args);
-        for (MoveDirection task : tasks) animal1.move(task);
-        System.out.println(animal1);
+//        Animal animal1= new Animal();
+//        MoveDirection[] tasks= OptionsParser.parse(args);
+//        for (MoveDirection task : tasks) animal1.move(task);
+//        System.out.println(animal1);
+
+
 //        System.out.println(animal1);
 //        animal1.move(MoveDirection.RIGHT);
 //        animal1.move(MoveDirection.FORWARD);
@@ -24,6 +26,13 @@ public class World {
 //        System.out.println(animal1);
 //        MoveDirection[] testTab= OptionsParser.parse(new String[]{"b","r","l","backward","forwaard","forward","slalfaf","123"});
 //        System.out.println(testTab[4]);
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map);
+
     }
     static void run(Direction[] steps){
         /*
