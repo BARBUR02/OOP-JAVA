@@ -27,14 +27,17 @@ public class World {
 //        MoveDirection[] testTab= OptionsParser.parse(new String[]{"b","r","l","backward","forwaard","forward","slalfaf","123"});
 //        System.out.println(testTab[4]);
         MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new RectangularMap(10, 5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+//        IWorldMap map = new RectangularMap(10, 5);
+        IWorldMap map = new GrassField(10);
+        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
+//        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(5, 4)};
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
         System.out.println(map);
 
     }
-    static void run(Direction[] steps){
+
+    static void run(Direction[] steps) {
         /*
         System.out.println("Zwierzak idzie do przodu");
         for (int i=0;i<ruchy.length;i++) {
@@ -43,47 +46,48 @@ public class World {
         }
         */
         System.out.println("Start");
-        for (Direction step : steps ){
+        for (Direction step : steps) {
             action(step);
         }
         System.out.println("Stop");
 
     }
 
-    static List <Direction> transformStream(String[] steps){
-        List <String> list= Arrays.asList(steps);
-        return list.stream().map(arg->switch(arg){
-            case "f"-> Direction.FORWARD;
-            case "b"-> Direction.BACKWARD;
-            case "r"-> Direction.RIGHT;
-            case "l"-> Direction.LEFT;
+    static List<Direction> transformStream(String[] steps) {
+        List<String> list = Arrays.asList(steps);
+        return list.stream().map(arg -> switch (arg) {
+            case "f" -> Direction.FORWARD;
+            case "b" -> Direction.BACKWARD;
+            case "r" -> Direction.RIGHT;
+            case "l" -> Direction.LEFT;
             default -> Direction.UNKNOWN;
         }).collect(Collectors.toList());
     }
 
-    static void runStream(List<Direction> answer){
-        answer.stream().filter(step->step!=Direction.UNKNOWN).forEach(step->action(step));
+    static void runStream(List<Direction> answer) {
+        answer.stream().filter(step -> step != Direction.UNKNOWN).forEach(step -> action(step));
     }
-    static Direction[] transform(String[] steps){
-        Direction[] resultTab= new Direction[steps.length];
-        for (int i=0;i<steps.length;i++){
-            resultTab[i] = switch(steps[i]){
-                case "f"-> Direction.FORWARD;
-                case "b"-> Direction.BACKWARD;
-                case "r"-> Direction.RIGHT;
-                case "l"-> Direction.LEFT;
+
+    static Direction[] transform(String[] steps) {
+        Direction[] resultTab = new Direction[steps.length];
+        for (int i = 0; i < steps.length; i++) {
+            resultTab[i] = switch (steps[i]) {
+                case "f" -> Direction.FORWARD;
+                case "b" -> Direction.BACKWARD;
+                case "r" -> Direction.RIGHT;
+                case "l" -> Direction.LEFT;
                 default -> Direction.UNKNOWN;
             };
         }
         return resultTab;
     }
 
-    static void action(Direction step){
-        switch(step){
-            case FORWARD-> System.out.println("Zwierzak idzie do przodu");
-            case BACKWARD-> System.out.println("Zwierzak idzie do tylu");
+    static void action(Direction step) {
+        switch (step) {
+            case FORWARD -> System.out.println("Zwierzak idzie do przodu");
+            case BACKWARD -> System.out.println("Zwierzak idzie do tylu");
             case RIGHT -> System.out.println("Zwierzak skreca w prawo");
-            case LEFT-> System.out.println("Zwierzak skreca w lewo");
+            case LEFT -> System.out.println("Zwierzak skreca w lewo");
         }
     }
 }

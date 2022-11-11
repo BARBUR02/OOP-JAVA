@@ -12,7 +12,9 @@ public class AnimalTest {
     // checked object init
     @BeforeEach
     void init(){
-        animal=new Animal();
+        IWorldMap map=new RectangularMap(4,4);
+        animal=new Animal(map);
+        map.place(animal);
     }
 
     // init check
@@ -54,8 +56,8 @@ public class AnimalTest {
         String[] args={"f","f","f","f"};
         MoveDirection[] tasks=OptionsParser.parse(args);
         for (MoveDirection task : tasks) animal.move(task);
-        assertTrue(animal.getCurrPosition().precedes(new Vector2d(4,4))
-        && animal.getCurrPosition().follows(new Vector2d(0,0)));
+        assertTrue(animal.getPosition().precedes(new Vector2d(4,4))
+        && animal.getPosition().follows(new Vector2d(0,0)));
     }
 
     @Test
@@ -63,8 +65,8 @@ public class AnimalTest {
         String[] args={"r","f","f","f","f"};
         MoveDirection[] tasks=OptionsParser.parse(args);
         for (MoveDirection task : tasks) animal.move(task);
-        assertTrue(animal.getCurrPosition().precedes(new Vector2d(4,4))
-                && animal.getCurrPosition().follows(new Vector2d(0,0)));
+        assertTrue(animal.getPosition().precedes(new Vector2d(4,4))
+                && animal.getPosition().follows(new Vector2d(0,0)));
     }
 
     @Test
@@ -72,8 +74,8 @@ public class AnimalTest {
         String[] args={"l","f","f","f","f"};
         MoveDirection[] tasks=OptionsParser.parse(args);
         for (MoveDirection task : tasks) animal.move(task);
-        assertTrue(animal.getCurrPosition().precedes(new Vector2d(4,4))
-                && animal.getCurrPosition().follows(new Vector2d(0,0)));
+        assertTrue(animal.getPosition().precedes(new Vector2d(4,4))
+                && animal.getPosition().follows(new Vector2d(0,0)));
     }
 
     @Test
@@ -81,8 +83,8 @@ public class AnimalTest {
         String[] args={"l","l","f","f","f","f"};
         MoveDirection[] tasks=OptionsParser.parse(args);
         for (MoveDirection task : tasks) animal.move(task);
-        assertTrue(animal.getCurrPosition().precedes(new Vector2d(4,4))
-                && animal.getCurrPosition().follows(new Vector2d(0,0)));
+        assertTrue(animal.getPosition().precedes(new Vector2d(4,4))
+                && animal.getPosition().follows(new Vector2d(0,0)));
     }
 
     @Test

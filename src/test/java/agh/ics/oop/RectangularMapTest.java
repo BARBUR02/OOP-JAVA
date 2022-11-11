@@ -1,14 +1,15 @@
 package agh.ics.oop;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class SimulationEngineTest {
+public class RectangularMapTest {
 
     @Test
     void initTest(){
@@ -19,8 +20,9 @@ public class SimulationEngineTest {
         engine1.run();
         IWorldMap correctMap= new RectangularMap(10,5);
         RectangularMap correctMap1 = (RectangularMap) correctMap;
-        correctMap1.animals.add(new Animal(correctMap1,new Vector2d(2,2)));
-        correctMap1.animals.add(new Animal(correctMap1,new Vector2d(3,3)));
+        List<Animal> animals = correctMap1.getAnimals();
+        animals.add(new Animal(correctMap1,new Vector2d(2,2)));
+        animals.add(new Animal(correctMap1,new Vector2d(3,3)));
         assertTrue(correctMap1.toString().equals(checkMap.toString()));
     }
 
@@ -32,8 +34,9 @@ public class SimulationEngineTest {
         engine1.run();
         IWorldMap correctMap= new RectangularMap(10,5);
         RectangularMap correctMap1 = (RectangularMap) correctMap;
-        correctMap1.animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(2,3)));
-        correctMap1.animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(3,3)));
+        List<Animal> animals = correctMap1.getAnimals();
+        animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(2,3)));
+        animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(3,3)));
         assertTrue(correctMap1.toString().equals(checkMap.toString()));
 
     }
@@ -47,8 +50,9 @@ public class SimulationEngineTest {
         engine1.run();
         IWorldMap correctMap= new RectangularMap(10,5);
         RectangularMap correctMap1 = (RectangularMap) correctMap;
-        correctMap1.animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(2,0)));
-        correctMap1.animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(9,0)));
+        List<Animal> animals = correctMap1.getAnimals();
+        animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(2,0)));
+        animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(9,0)));
         assertTrue(correctMap1.toString().equals(checkMap.toString()));
     }
 
@@ -62,8 +66,9 @@ public class SimulationEngineTest {
         engine1.run();
         IWorldMap correctMap= new RectangularMap(10,5);
         RectangularMap correctMap1 = (RectangularMap) correctMap;
-        correctMap1.animals.add(new Animal(MapDirection.NORTH,correctMap1,new Vector2d(3,5)));
-        correctMap1.animals.add(new Animal(MapDirection.SOUTH,correctMap1,new Vector2d(2,0)));
+        List<Animal> animals = correctMap1.getAnimals();
+        animals.add(new Animal(MapDirection.NORTH,correctMap1,new Vector2d(3,5)));
+        animals.add(new Animal(MapDirection.SOUTH,correctMap1,new Vector2d(2,0)));
         assertTrue(correctMap1.toString().equals(checkMap.toString()));
     }
 
@@ -77,9 +82,10 @@ public class SimulationEngineTest {
         engine1.run();
         IWorldMap correctMap= new RectangularMap(10,5);
         RectangularMap correctMap1 = (RectangularMap) correctMap;
-        correctMap1.animals.add(new Animal(MapDirection.NORTH,correctMap1,new Vector2d(2,5)));
-        correctMap1.animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(9,4)));
-        correctMap1.animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(10,4)));
+        List<Animal> animals = correctMap1.getAnimals();
+        animals.add(new Animal(MapDirection.NORTH,correctMap1,new Vector2d(2,5)));
+        animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(9,4)));
+        animals.add(new Animal(MapDirection.EAST,correctMap1,new Vector2d(10,4)));
         assertTrue(correctMap1.toString().equals(checkMap.toString()));
     }
 
