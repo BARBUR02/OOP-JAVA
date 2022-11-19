@@ -1,32 +1,53 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal {
     private MapDirection orient;
     private Vector2d position;
 
     private IWorldMap map;
 
+    private List<IPositionChangeObserver> observers=new ArrayList<>();
     public Animal() {
         this.orient = MapDirection.NORTH;
         this.position = new Vector2d(2, 2);
     }
 
+
     public Animal(IWorldMap map, Vector2d initialPosition) {
         this.orient = MapDirection.NORTH;
         this.position = initialPosition;
         this.map = map;
+        addObserver((IPositionChangeObserver) map);
     }
 
     public Animal(MapDirection direction,IWorldMap map, Vector2d initialPosition) {
         this.orient = direction;
         this.position = initialPosition;
         this.map = map;
+        addObserver((IPositionChangeObserver) map);
     }
 
     public Animal(IWorldMap map) {
         this.orient = MapDirection.NORTH;
         this.position = new Vector2d(2, 2);
         this.map = map;
+        addObserver((IPositionChangeObserver) map);
+    }
+
+    public void addObserver(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+    public void removeObserver(IPositionChangeObserver observer){
+        observers.remove(observer);
+    }
+
+    public void positionChanged(Vector2d oldPosition,Vector2d newPosition){
+        for (IPositionChangeObserver observer: observers){
+            observer.positionChanged(oldPosition,newPosition);
+        }
     }
 
     public MapDirection getOrient() {
@@ -71,27 +92,31 @@ public class Animal {
                 switch (this.orient) {
                     case NORTH -> {
                         Vector2d candidatePosition = new Vector2d(vector.x, vector.y + 1);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case SOUTH -> {
                         Vector2d candidatePosition = new Vector2d(vector.x, vector.y - 1);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case EAST -> {
                         Vector2d candidatePosition = new Vector2d(vector.x + 1, vector.y);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)) {
+                            positionChanged(this.position, candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case WEST -> {
                         Vector2d candidatePosition = new Vector2d(vector.x - 1, vector.y);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                 }
             }
@@ -99,32 +124,38 @@ public class Animal {
                 switch (this.orient) {
                     case NORTH -> {
                         Vector2d candidatePosition = new Vector2d(vector.x, vector.y - 1);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case SOUTH -> {
                         Vector2d candidatePosition = new Vector2d(vector.x, vector.y + 1);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case EAST -> {
                         Vector2d candidatePosition = new Vector2d(vector.x - 1, vector.y);
-                        if (map.canMoveTo(candidatePosition))
-
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
                     }
                     case WEST -> {
                         Vector2d candidatePosition = new Vector2d(vector.x + 1, vector.y);
-                        if (map.canMoveTo(candidatePosition))
+                        if (map.canMoveTo(candidatePosition)){
+                            positionChanged(this.position,candidatePosition);
                             this.position = candidatePosition;
+                        }
+
                     }
                 }
             }
 
         }
-//        System.out.println(map);
+        System.out.println(this.position);
     }
 
 }

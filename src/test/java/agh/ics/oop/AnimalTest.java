@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AnimalTest {
 
     private Animal animal;
-
+    private IWorldMap map;
     // checked object init
     @BeforeEach
     void init(){
-        IWorldMap map=new RectangularMap(4,4);
+        map=new RectangularMap(4,4);
         animal=new Animal(map);
         map.place(animal);
     }
@@ -92,6 +92,8 @@ public class AnimalTest {
         String[] args={"f","f","r","f","f","r","f","f","r","f","f"};
         MoveDirection[] tasks=OptionsParser.parse(args);
         for (MoveDirection task : tasks) animal.move(task);
+        System.out.println(animal.getPosition());
+        System.out.println(map.canMoveTo(new Vector2d(2,2)));
         assertTrue(animal.isAt(new Vector2d(2,2)));
     }
 

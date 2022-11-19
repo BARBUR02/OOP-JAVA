@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RectangularMap extends AbstractWorldMap implements IWorldMap {
+public class RectangularMap extends AbstractWorldMap  {
     private int width;
     private int height;
 
@@ -26,19 +26,18 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return position.x <= width && position.x >= 0 &&
-                position.y >= 0 && position.y <= height && !isOccupied(position);
+        if ( position.x <= width && position.x >= 0 &&
+                position.y >= 0 && position.y <= height && !isOccupied(position) ){
+            return true;
+        };
+        return false;
     }
 
 
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position))
-                return animal;
-        }
-        return null;
+        return animals.get(position);
     }
 
 }

@@ -1,17 +1,15 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class GrassField extends AbstractWorldMap implements IWorldMap {
+public class GrassField extends AbstractWorldMap {
     private int bushNumber;
     private int[] leftBottom;
     private int[] rightUp;
-    private List<Grass> bushes;
+    private Map<Vector2d,Grass> bushes;
 
     @Override
     public Vector2d getLeftBottom() {
@@ -31,7 +29,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     public void initBushes(int bushNumber) {
         if (bushNumber == 0) return;
-        this.bushes = new ArrayList<Grass>();
+        this.bushes = new HashMap<Vector2d,Grass>();
 //        int[] coordinates = randomCoordinates(bushNumber);
 //        int[] coordinates = {2,-1};
 //        Vector2d candidateVector = new Vector2d(coordinates[0], coordinates[1]);
@@ -39,7 +37,8 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 //        leftBottom = new int[]{coordinates[0], coordinates[1]};
 //        rightUp = new int[]{coordinates[0], coordinates[1]};
         for (int i = 0; i < bushNumber; i++) {
-            bushes.add(new Grass(getNewPosition()));
+            Vector2d position=getNewPosition();
+            bushes.put(position,new Grass(position));
         }
     }
 
@@ -74,31 +73,36 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
                 generator.nextInt((int) Math.sqrt(n * 10) + 1)};
     }
 
-    public List<Grass> getBushes() {
+    public Map<Vector2d,Grass> getBushes() {
         return bushes;
     }
 
     public void moveGrass(Vector2d position) {
         Grass toChange;
-        for (Grass bush : bushes) {
-            if (bush.getPosition().equals(position)) {
-                toChange = bush;
-                toChange.setPosition(getNewPosition());
-                return;
-            }
+        if (bushes.get(position) != null ) {
+                toChange = bushes.get(position);
+                Vector2d vector=getNewPosition();
+                toChange.setPosition(vector);
+                bushes.remove(position);
+                bushes.put(vector,toChange);
         }
 
     }
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
+    public boolean canMoveTo(Vector2d position){
         Object mapElement = objectAt(position);
         if ((mapElement instanceof Animal)) return false;
         if ((mapElement instanceof Grass)) {
 //            System.out.println("PRZED:\n-----\n"+this);
 //            System.out.println("Pozycja przed: " + position);
+//            animals.remove(animal.getPosition());
+            Vector2d vector=getNewPosition();
+            bushes.remove(position);
             Grass grassElement = (Grass) mapElement;
-            grassElement.setPosition(getNewPosition());
+            grassElement.setPosition(vector);
+            bushes.put(vector,grassElement);
+
 //            System.out.println("PO:\n----\n"+this);
 //            System.out.println("Zmieniona pozycja: "+grassElement.getPosition());
         }
@@ -110,13 +114,12 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position))
-                return animal;
+        if (animals.get(position)!=null){
+            return animals.get(position);
         }
-        for (Grass bush : bushes) {
-            if (bush.getPosition().equals(position))
-                return bush;
+
+        if (bushes.get(position)!=null){
+            return bushes.get(position);
         }
 
         return null;
