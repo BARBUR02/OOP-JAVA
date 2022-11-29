@@ -3,9 +3,9 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal extends AbstractMapElement{
     private MapDirection orient;
-    private Vector2d position;
+//    private Vector2d position;
 
     private IWorldMap map;
 
@@ -54,9 +54,9 @@ public class Animal {
         return orient;
     }
 
-    public Vector2d getPosition() {
-        return position;
-    }
+//    public Vector2d getPosition() {
+//        return position;
+//    }
 
     @Override
     public String toString() {
@@ -155,7 +155,7 @@ public class Animal {
             }
 
         }
-        System.out.println(this.position);
+//        System.out.println(this.position);
     }
 
 }

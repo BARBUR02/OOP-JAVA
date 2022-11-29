@@ -1,40 +1,44 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.stream.Collectors;
 
 public class World {
     public static void main(String[] args) {
-//        System.out.println("System wystartowal");
-////        Za pomoca stream:
-//        run(transform(args));
-////        runStream(transformStream(args));
-//        System.out.println("System zakonczyl dzialanie");
+        Application.launch(App.class,args);
 
-//        Animal animal1= new Animal();
-//        MoveDirection[] tasks= OptionsParser.parse(args);
-//        for (MoveDirection task : tasks) animal1.move(task);
-//        System.out.println(animal1);
-
-
-//        System.out.println(animal1);
-//        animal1.move(MoveDirection.RIGHT);
-//        animal1.move(MoveDirection.FORWARD);
-//        animal1.move(MoveDirection.FORWARD);
-//        animal1.move(MoveDirection.FORWARD);
-//        System.out.println(animal1);
-//        MoveDirection[] testTab= OptionsParser.parse(new String[]{"b","r","l","backward","forwaard","forward","slalfaf","123"});
-//        System.out.println(testTab[4]);
-        MoveDirection[] directions = new OptionsParser().parse(args);
-//        IWorldMap map = new RectangularMap(10, 5);
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
-//        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(5, 4)};
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
-        System.out.println(map);
-
+//
+//        MapBoundary test=new MapBoundary();
+//        SortedSet zbior = test.setX;
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(4,5)));
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(2,2)));
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(4,4)));
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(2,3)));
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(4,4)));
+//        zbior.add(new Animal(new GrassField(10),new Vector2d(3,2)));
+//        AbstractMapElement first= (AbstractMapElement) zbior.first();
+//        AbstractMapElement last= (AbstractMapElement) zbior.last();
+//        System.out.println(first.getPosition());
+//        System.out.println(last.getPosition());
+//        try {
+//            MoveDirection[] directions = new OptionsParser().parse(args);
+////        IWorldMap map = new RectangularMap(10, 5);
+//            IWorldMap map = new GrassField(10);
+//            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
+////        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(5, 4)};
+//            IEngine engine = new SimulationEngine(directions, map, positions);
+//            engine.run();
+//            System.out.println(map);
+//        }
+//        catch (IllegalArgumentException e){
+//            System.out.println(e);
+//            System.exit(0);
+//        }
     }
 
     static void run(Direction[] steps) {

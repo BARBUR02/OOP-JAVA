@@ -4,6 +4,7 @@ package agh.ics.oop;
 import org.junit.jupiter.api.Test;
 
 
+import java.nio.channels.IllegalChannelGroupException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,37 +15,47 @@ public class RectangularMapTest {
 
     @Test
     void initTest(){
-        IWorldMap checkMap=new RectangularMap(10,5);
-        Vector2d[] positions = {new Vector2d(2,2), new Vector2d(3,3), new Vector2d(2,2),
-        new Vector2d(3,3)};
-        IEngine engine1=new SimulationEngine(new OptionsParser().parse(new String[] {"fe"}) ,checkMap,positions);
-        engine1.run();
-        IWorldMap correctMap= new RectangularMap(10,5);
-        RectangularMap correctMap1 = (RectangularMap) correctMap;
-        Map<Vector2d,Animal> animals = correctMap1.getAnimals();
-        Vector2d vec1=new Vector2d(2,2);
-        Vector2d vec2=new Vector2d(3,3);
-        animals.put(vec1,new Animal(correctMap1,vec1));
-        animals.put(vec2,new Animal(correctMap1,vec2));
-        assertTrue(correctMap1.toString().equals(checkMap.toString()));
+        try {
+            IWorldMap checkMap = new RectangularMap(10, 5);
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3), new Vector2d(2, 2),
+                    new Vector2d(3, 3)};
+            IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{""}), checkMap, positions);
+            engine1.run();
+            IWorldMap correctMap = new RectangularMap(10, 5);
+            RectangularMap correctMap1 = (RectangularMap) correctMap;
+            Map<Vector2d, Animal> animals = correctMap1.getAnimals();
+            Vector2d vec1 = new Vector2d(2, 2);
+            Vector2d vec2 = new Vector2d(3, 3);
+            animals.put(vec1, new Animal(correctMap1, vec1));
+            animals.put(vec2, new Animal(correctMap1, vec2));
+            assertTrue(correctMap1.toString().equals(checkMap.toString()));
+        }
+        catch (IllegalArgumentException e){
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
     @Test
     void blockTest(){
-        IWorldMap checkMap=new RectangularMap(10,5);
-        Vector2d[] positions = {new Vector2d(2,2), new Vector2d(3,3)};
-        IEngine engine1=new SimulationEngine(new OptionsParser().parse(new String[] {"f", "l", "l"," f"}) ,checkMap,positions);
-        engine1.run();
-        IWorldMap correctMap= new RectangularMap(10,5);
-        RectangularMap correctMap1 = (RectangularMap) correctMap;
-        Map<Vector2d,Animal> animals = correctMap1.getAnimals();
-        Vector2d vec1=new Vector2d(2,3);
-        Vector2d vec2=new Vector2d(3,3);
-        animals.put(vec1,new Animal(MapDirection.WEST,correctMap1,vec1));
-        animals.put(vec2,new Animal(MapDirection.WEST,correctMap1,vec2));
+        try {
+            IWorldMap checkMap = new RectangularMap(10, 5);
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
+            IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{"f", "l", "l", " f"}), checkMap, positions);
+            engine1.run();
+            IWorldMap correctMap = new RectangularMap(10, 5);
+            RectangularMap correctMap1 = (RectangularMap) correctMap;
+            Map<Vector2d, Animal> animals = correctMap1.getAnimals();
+            Vector2d vec1 = new Vector2d(2, 3);
+            Vector2d vec2 = new Vector2d(3, 3);
+            animals.put(vec1, new Animal(MapDirection.WEST, correctMap1, vec1));
+            animals.put(vec2, new Animal(MapDirection.WEST, correctMap1, vec2));
 //        animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(2,3)));
 //        animals.add(new Animal(MapDirection.WEST,correctMap1,new Vector2d(3,3)));
-        assertTrue(correctMap1.toString().equals(checkMap.toString()));
+            assertTrue(correctMap1.toString().equals(checkMap.toString()));
+        }
+        catch (IllegalArgumentException e){
+            assertTrue(e instanceof IllegalArgumentException);
+        }
 
     }
 

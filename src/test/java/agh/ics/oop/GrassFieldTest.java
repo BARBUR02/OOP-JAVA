@@ -13,38 +13,46 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GrassFieldTest {
     @Test
     void initTest() {
-        IWorldMap checkMap = new GrassField(10);
-        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3), new Vector2d(2, 2),
-                new Vector2d(3, 3)};
-        IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{"fe"}), checkMap, positions);
-        engine1.run();
-        GrassField checkMap1 = (GrassField) checkMap;
+        try {
+            IWorldMap checkMap = new GrassField(10);
+            Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3), new Vector2d(2, 2),
+                    new Vector2d(3, 3)};
+            IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{""}), checkMap, positions);
+            engine1.run();
+            GrassField checkMap1 = (GrassField) checkMap;
 
 
-
-        Map<Vector2d,Animal> animals = (checkMap1).getAnimals();
-        Map<Vector2d,Grass> bushes = (checkMap1).getBushes();
-        assertTrue(bushes.size() == 10 && checkMap1.objectAt(new Vector2d(2,2)) instanceof Animal
-                && checkMap1.objectAt(new Vector2d(3,3)) instanceof Animal
-                );
+            Map<Vector2d, Animal> animals = (checkMap1).getAnimals();
+            Map<Vector2d, Grass> bushes = (checkMap1).getBushes();
+            assertTrue(bushes.size() == 10 && checkMap1.objectAt(new Vector2d(2, 2)) instanceof Animal
+                    && checkMap1.objectAt(new Vector2d(3, 3)) instanceof Animal
+            );
+        }
+        catch (Exception e){
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
     @Test
     void blockTest() {
+        try{
         IWorldMap checkMap = new GrassField(10);
         Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
         IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{"f", "l", "l", " f"}), checkMap, positions);
         engine1.run();
         GrassField checkMap1 = (GrassField) checkMap;
-        Map<Vector2d,Animal> animals = (checkMap1).getAnimals();
-        Map<Vector2d,Grass> bushes = (checkMap1).getBushes();
+        Map<Vector2d, Animal> animals = (checkMap1).getAnimals();
+        Map<Vector2d, Grass> bushes = (checkMap1).getBushes();
         assertTrue(bushes.size() == 10
-                && checkMap1.objectAt(new Vector2d(2,3)) instanceof Animal
-                && checkMap1.objectAt(new Vector2d(3,3)) instanceof Animal
-                && animals.get(new Vector2d(2,3)).getOrient() == MapDirection.WEST
-                && animals.get(new Vector2d(3,3)).getOrient() == MapDirection.WEST
-                );
+                && checkMap1.objectAt(new Vector2d(2, 3)) instanceof Animal
+                && checkMap1.objectAt(new Vector2d(3, 3)) instanceof Animal
+                && animals.get(new Vector2d(2, 3)).getOrient() == MapDirection.WEST
+                && animals.get(new Vector2d(3, 3)).getOrient() == MapDirection.WEST
+        );
 
+    }catch (Exception e){
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
     @Test
@@ -67,11 +75,11 @@ public class GrassFieldTest {
                 new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"})
                 , checkMap, positions);
         engine1.run();
-        System.out.println(checkMap);
+//        System.out.println(checkMap);
         GrassField checkMap1 = (GrassField) checkMap;
         Map<Vector2d,Animal> animals = checkMap1.getAnimals();
         Map<Vector2d,Grass> bushes =checkMap1.getBushes();
-        System.out.println(checkMap);
+//        System.out.println(checkMap);
         assertTrue(bushes.size() == 10
                 && animals.get(new Vector2d(2, -1)).isAt(new Vector2d(2, -1))
                 && animals.get(new Vector2d(3, 7)).isAt(new Vector2d(3, 7))

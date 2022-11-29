@@ -13,12 +13,16 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getLeftBottom() {
-        return new Vector2d(leftBottom[0], leftBottom[1]);
+        return new Vector2d(boundary.getFirstX(),boundary.getFirstY());
     }
 
+//    @Override
+//    public Vector2d getLeftBottom() {
+//        return new Vector2d(leftBottom[0], leftBottom[1] );
+//    }
     @Override
     public Vector2d getRightUp() {
-        return new Vector2d(rightUp[0], rightUp[1]);
+        return new Vector2d(boundary.getLastX(), boundary.getLastY());
     }
 
     public GrassField(int bushNumber) {
@@ -38,7 +42,9 @@ public class GrassField extends AbstractWorldMap {
 //        rightUp = new int[]{coordinates[0], coordinates[1]};
         for (int i = 0; i < bushNumber; i++) {
             Vector2d position=getNewPosition();
-            bushes.put(position,new Grass(position));
+            Grass grass=new Grass(position);
+            bushes.put(position,grass);
+            boundary.addToMap(position, grass);
         }
     }
 
@@ -99,9 +105,11 @@ public class GrassField extends AbstractWorldMap {
 //            animals.remove(animal.getPosition());
             Vector2d vector=getNewPosition();
             bushes.remove(position);
+            boundary.removeKey(position);
             Grass grassElement = (Grass) mapElement;
             grassElement.setPosition(vector);
             bushes.put(vector,grassElement);
+            boundary.addToMap(vector, grassElement);
 
 //            System.out.println("PO:\n----\n"+this);
 //            System.out.println("Zmieniona pozycja: "+grassElement.getPosition());
