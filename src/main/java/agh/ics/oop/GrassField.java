@@ -1,22 +1,34 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+
 import java.util.*;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-public class GrassField extends AbstractWorldMap {
+public class GrassField extends AbstractWorldMap  {
     private int bushNumber;
     private int[] leftBottom;
     private int[] rightUp;
     private Map<Vector2d,Grass> bushes;
 
+    private IPositionChangeObserver observer;
     @Override
     public Vector2d getLeftBottom() {
         return new Vector2d(boundary.getFirstX(),boundary.getFirstY());
     }
 
-//    @Override
+    public void setObserver(IPositionChangeObserver observer){
+        this.observer=observer;
+    }
+
+
+    public void updateGui() {
+        this.observer.positionChanged(new Vector2d(1,1),new Vector2d(2,2));
+    }
+
+    //    @Override
 //    public Vector2d getLeftBottom() {
 //        return new Vector2d(leftBottom[0], leftBottom[1] );
 //    }

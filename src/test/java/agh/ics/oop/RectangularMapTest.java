@@ -40,7 +40,7 @@ public class RectangularMapTest {
         try {
             IWorldMap checkMap = new RectangularMap(10, 5);
             Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
-            IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{"f", "l", "l", " f"}), checkMap, positions);
+            IEngine engine1 = new SimulationEngine(new OptionsParser().parse(new String[]{"ff", "l", "l", " f"}), checkMap, positions);
             engine1.run();
             IWorldMap correctMap = new RectangularMap(10, 5);
             RectangularMap correctMap1 = (RectangularMap) correctMap;

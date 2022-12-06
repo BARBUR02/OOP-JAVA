@@ -74,16 +74,35 @@ public class MapBoundary implements IPositionChangeObserver{
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         System.out.println("Position changed w boundary!"+" from: "+oldPosition+" to: "+newPosition );
         IMapElement element=mapElements.get(oldPosition);
+        Vector2d pos=element.getPosition();
         mapElements.remove(oldPosition);
         mapElements.put(newPosition,element);
+        System.out.println(("Element: "+ element + " " + element.getPosition()));
+        System.out.println(mapElements.get(newPosition).getPosition());
         this.setX.remove(element);
         this.setY.remove(element);
+        element.setPosition(newPosition);
+        System.out.println("Dodajemy do setow: "+element.getPosition());
+        System.out.println("Czy w secie X jest juz ten element? "+ this.setX.contains(element));
+        System.out.println("Czy w secie Y jest juz ten element? "+ this.setY.contains(element));
         this.setX.add(element);
         this.setY.add(element);
-//        System.out.println("First X item: " +this.setX.first().getPosition());
-//        System.out.println("last X item: " +this.setX.last().getPosition());
-//        System.out.println("First Y item: " +this.setY.first().getPosition());
-//        System.out.println("Last Y item: " +this.setY.last().getPosition());
+        System.out.println("Po dodaniu : ");
+        System.out.println("Czy w secie X jest juz ten element? "+ this.setX.contains(element));
+        System.out.println("Czy w secie Y jest juz ten element? "+ this.setY.contains(element));
+        System.out.println("First X item: " +this.setX.first().getPosition());
+        System.out.println("last X item: " +this.setX.last().getPosition());
+        System.out.println("First Y item: " +this.setY.first().getPosition());
+        System.out.println("Last Y item: " +this.setY.last().getPosition());
+
+        System.out.println("X objects: ");
+        for (Object el : setX.toArray()){
+            System.out.println(((IMapElement)el).getPosition());
+        }
+        System.out.println("Y objects: ");
+        for (Object el : setY.toArray()){
+            System.out.println(((IMapElement)el).getPosition());
+        }
     }
 
     public int getFirstX(){
